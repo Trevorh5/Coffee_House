@@ -16,8 +16,7 @@ CORS(app)
 ## ROUTES
 
 @app.route('/drinks', methods=['GET'])
-@requires_auth('get:drinks-detail')
-def get_drinks(arg):
+def get_drinks():
     drinks = [drink.short() for drink in Drink.query.all()]
     return jsonify({'success': True, 'drinks': drinks})
 
@@ -52,7 +51,6 @@ def edit_drink(jwt, id):
     recipe = request.json.get('recipe')
 
     if drink: 
-        print("YUP!!!")
         drink.title = title
         drink.recipe = json.dumps(recipe)
         drink.update()
